@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>立方体实验</title>
+  
+  <!-- HTML -->
+  <style>
+    * {
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+body{
+  overflow:hidden;
+  padding-top:30vw;
+  background-color: pink;
+  perspective:3000px;
+}
+.wrapper {
+  position: relative;
+  margin: auto;
+  width:30vw;
+  height: 30vw;
+  
+  transform-style: preserve-3d;
+  transform-origin:center center -15vw;
+  animation: change 5s linear forwards;
+
+}
+
+@keyframes change {
+  0% {
+    transform: rotateY(0deg);
+  }
+  50%{
+    transform:rotateY(-270deg)
+  }
+
+  80% {
+    transform: rotateX(-90deg);
+  }
+  100%{
+    transform:rotateX(90deg)
+  }
+}
+
+.wrapper>* {
+  border:solid 1px black;
+  opacity:0.7;
+  width: 30vw;
+  height: 30vw;
+  background-color: deeppink;
+  color:yellow;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  text-align: center;
+  line-height: 30vw;
+  font-size: 15vw;
+  transform-origin: center center -15vw;
+}
+
+.wrapper>div:nth-child(6) {
+  transform:rotateX(-90deg);
+}
+
+.wrapper>div:nth-child(5) {
+  transform:rotateX(90deg);
+}
+.wrapper>div:nth-child(4) {
+  transform:rotateY(-90deg);
+}
+.wrapper>div:nth-child(3) {
+  transform:rotateY(180deg);
+}
+.wrapper>div:nth-child(2) {
+  transform:rotateY(90deg);
+}
+.wrapper>div:nth-child(1) {
+  transform:rotateX(0deg);
+}
+#zhufu{
+  background:white;
+  display: block;
+  text-align: center;
+  position: absolute;
+  top:90vh;
+  left:0;
+  right:0;
+  font-size: 7vw;
+  color:red;
+  text-decoration:none;
+}
+  </style>
+  
+
+</head>
+
+<body>
+  <div class="wrapper"  id="wrap">
+    <div>祝</div>
+    <div>情</div>
+    <div>人</div>
+    <div>节</div>
+    <div>快</div>
+    <div>乐</div>
+  </div>
+
+
+ <!-- <a id ="zhufu"href="https://fy1302uc.github.io/zhufu.github.io/">2023年已至，送上新年祝福</a>
+-->
+</body>
+  <script>
+    var wrap = document.getElementById('wrap');
+wrap.addEventListener('touchstart', function(ev) {
+  ev = ev || event;
+  ev.stopPropagation();
+})
+wrap.addEventListener('animationend',function(ev){
+  ev=ev||event;
+wrap.style.animation='none';
+wrap.style.transform = 'rotateX(90deg)'
+  
+  
+})
+document.body.addEventListener('touchstart', function(ev) {
+  ev = ev || event;
+  var touchC = ev.changedTouches[0];
+  this.moveX=touchC.clientX;
+  this.moveY=touchC.clientY;
+  if (this.x=== undefined) {
+    this.x = 0;
+    this.y = 90;
+  }
+  
+  
+  
+})
+document.body.addEventListener('touchmove', function(ev) {
+  ev = ev || event;
+  var touchC = ev.changedTouches[0];
+
+  var x=touchC.clientX-this.moveX;
+  var y=touchC.clientY-this.moveY;
+  this.moveX=touchC.clientX;
+  this.moveY=touchC.clientY;
+//document.body.innerHTML=x;
+this.x+=x;
+this.y+=-y;
+wrap.style.transform = 'rotateY(' +this.x  + 'deg) rotateX('+this.y+'deg)';
+});
+document.body.addEventListener('touchend', function(ev) {
+  ev = ev || event
+})
+
+  </script>
+</html>
+
